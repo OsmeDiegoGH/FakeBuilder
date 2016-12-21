@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: CodesGeneratorComponent
+Implementation-Title: FakeBuilder
 Class-Path: .
-Main-Class: baz.codesGeneratorComponent.testCall.testCall
+Main-Class: 
 

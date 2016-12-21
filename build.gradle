@@ -35,15 +35,6 @@ repositories {
 
 dependencies {
             
-    compile "com.google.code.gson:gson:$gradleProperties_gsonVersion",    
-            "log4j:log4j:$gradleProperties_log4jVersion",
-            "com.google.zxing:core:2.3.0",
-            "com.sun.xml.security:xml-security-impl:1.0",
-            "org.json:json:20140107",
-            "com.baz:SecureRequestHandler:+",
-            "junit:junit:4.12",
-            "org.mockito:mockito-core:2.0.57-beta",
-            "pl.pragmatists:JUnitParams:1.0.5"
 }
 
 task overrideCompileJAVAVersion (type: Jar)  {
