@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: CodesGeneratorComponent
+Class-Path: .
+Main-Class: baz.codesGeneratorComponent.testCall.testCall
+

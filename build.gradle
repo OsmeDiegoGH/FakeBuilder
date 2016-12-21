@@ -1,0 +1,90 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = gradleProperties_sourceCompatibilityJAVAVersion
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+// NetBeans will automatically add "run" and "debug" tasks relying on the
+// "mainClass" property. You may however define the property prior executing
+// tasks by passing a "-PmainClass=<QUALIFIED_CLASS_NAME>" argument.
+//
+// Note however, that you may define your own "run" and "debug" task if you
+// prefer. In this case NetBeans will not add these tasks but you may rely on
+// your own implementation.
+
+version = gradleProperties_projectVersion
+
+def jarName = rootProject.name + '-' + gradleProperties_projectVersion + '.jar'
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = ''
+}
+
+repositories {
+    def internalRepository = gradleProperties_artifactoryURL + gradleProperties_virtualRepository
+    
+    maven {
+        url internalRepository
+
+        credentials {
+            username gradleProperties_client_user
+            password gradleProperties_client_password
+        }
+    }
+}
+
+dependencies {
+            
+    compile "com.google.code.gson:gson:$gradleProperties_gsonVersion",    
+            "log4j:log4j:$gradleProperties_log4jVersion",
+            "com.google.zxing:core:2.3.0",
+            "com.sun.xml.security:xml-security-impl:1.0",
+            "org.json:json:20140107",
+            "com.baz:SecureRequestHandler:+",
+            "junit:junit:4.12",
+            "org.mockito:mockito-core:2.0.57-beta",
+            "pl.pragmatists:JUnitParams:1.0.5"
+}
+
+task overrideCompileJAVAVersion (type: Jar)  {
+    def compilador = gradleProperties_JAVAHome + '/bin/javac'
+    
+    println 'compiled with ' + compilador
+    compileJava {
+        options.compilerArgs << '-XDignore.symbol.file'
+        options.fork = true
+        options.forkOptions.executable = compilador
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': rootProject.name, 'Class-Path': '.', 'Main-Class': ''
+    }
+    from {
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId gradleProperties_artifactGroup
+            artifactId rootProject.name
+            version gradleProperties_projectVersion
+            
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username gradleProperties_publisher_user
+                password gradleProperties_publisher_password
+            }
+            url gradleProperties_artifactoryURL + gradleProperties_artifactName
+        }
+    }    
+}
