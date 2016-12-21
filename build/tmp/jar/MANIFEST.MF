@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: FakeBuilder
-Class-Path: .
-Main-Class: 
-
