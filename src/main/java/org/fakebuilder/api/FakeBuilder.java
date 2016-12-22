@@ -4,7 +4,7 @@ import org.fakebuilder.structures.FakeBuilderItem;
 import org.fakebuilder.structures.FakeListSizer;
 
 public class FakeBuilder{
-      
+    
     public static abstract class ApplyValuesFn<T>{
         public abstract void apply(T record);
     }

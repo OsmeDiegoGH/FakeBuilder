@@ -59,6 +59,8 @@ public class FakeBuilderProcessor {
             String primitiveTypeName = pType.getSimpleName().toLowerCase();
             if (primitiveTypeName.equals("int") || primitiveTypeName.equals("integer")) {
                 params.add(0);
+            }else if (primitiveTypeName.equals("boolean") || primitiveTypeName.equals("Boolean")) {
+                params.add(false);
             } else {
                 params.add(null);
             }
