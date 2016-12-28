@@ -1,7 +1,10 @@
 package org.fakebuilder.api;
 
+import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import junit.framework.Assert;
+import static junit.framework.Assert.assertEquals;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.fakebuilder.entities.Car;
@@ -70,15 +73,39 @@ public class FakeBuilderTest {
         person = this.builder.createNew(Person.class).with(applyFn).build();
 
         //Assert 
-        assertTrue(person.getFirstName().equals(firstName));
-        assertTrue(person.getLastName().equals(lastName));
-        assertTrue(person.getAge() == age);
-        assertTrue(person.getGender().equals(gender));
-        assertTrue(person.isHasCar() == hasCar);
-        assertTrue(person.getCar().getCarName().equals(carName));
-        assertTrue(person.getCar().getModel() == carModel);
-        assertTrue(person.getCar().IsHybrid() == isHybrid);
-        assertTrue(person.getCar().getColor().equals(carColor));
+        assertEquals(person.getFirstName(), firstName);
+        assertEquals(person.getLastName(), lastName);
+        assertEquals(person.getAge(), age);
+        assertEquals(person.getGender(), gender);
+        assertEquals(person.isHasCar(), hasCar);
+        assertEquals(person.getCar().getCarName(), carName);
+        assertEquals(person.getCar().getModel(), carModel);
+        assertEquals(person.getCar().IsHybrid(), isHybrid);
+        assertEquals(person.getCar().getColor(), carColor);
+    }
+    
+    
+    @Test
+    public void createNew_ShouldReturnAnEmptyList_EventhoughCustomValuesAreSpecified() throws Exception {
+        //Arrange
+        List<Person> list;
+        ApplyValuesFn<Person> applyFn = new ApplyValuesFn<Person>() {
+            @Override
+            public void apply(Person record) {
+                record.setFirstName("");
+                record.setLastName("");
+                record.setAge(0);
+                record.setGender(Person.GENDER.MALE);
+                record.setHasCar(true);
+                record.setCar(new Car("", 2016, true, Car.CAR_COLOR.BLACK));
+            }
+        };
+
+        //Act
+        list = this.builder.createList(Person.class).ofSize(0).all().with(applyFn).build();
+
+        //Assert 
+        assertEquals(list.size(), 0);
     }
 
     @Test
@@ -96,7 +123,7 @@ public class FakeBuilderTest {
         list = this.builder.createList(Person.class).ofSize(listSize).all().build();
 
         //Assert 
-        assertTrue(list.size() == listSize);
+        assertEquals(list.size(), listSize);
     }
 
     @Test
@@ -142,11 +169,11 @@ public class FakeBuilderTest {
         //Assert 
         assertTrue(list.size() == listSize);
         for (Person person : list) {
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
     }
 
@@ -195,12 +222,12 @@ public class FakeBuilderTest {
         assertTrue(list.size() == listSize);
         for (int i = 0; i < firstElementsToCustomize; i++) {
             Person person = list.get(i);
-
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
     }
 
@@ -249,12 +276,12 @@ public class FakeBuilderTest {
         assertTrue(list.size() == listSize);
         for (int i = listSize - lastElementsToCustomize; i < listSize; i++) {
             Person person = list.get(i);
-
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
     }
 
@@ -326,21 +353,21 @@ public class FakeBuilderTest {
         for (int i = 0; i < firstElementsToCustomize; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
 
         for (int i = firstElementsToCustomize; i < nextTotalIndex; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(nextFirstName));
-            assertTrue(person.getLastName().equals(nextLastName));
-            assertTrue(person.getAge() == nextAge);
-            assertTrue(person.getGender().equals(nextGender));
-            assertTrue(person.isHasCar() == nextHasCar);
+            assertEquals(person.getFirstName(), nextFirstName);
+            assertEquals(person.getLastName(), nextLastName);
+            assertEquals(person.getAge(), nextAge);
+            assertEquals(person.getGender(), nextGender);
+            assertEquals(person.isHasCar(), nextHasCar);
         }
     }
 
@@ -435,31 +462,31 @@ public class FakeBuilderTest {
         for (int i = 0; i < firstElementsToCustomize; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
 
         for (int i = firstElementsToCustomize; i < nextTotalIndex; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(nextFirstName));
-            assertTrue(person.getLastName().equals(nextLastName));
-            assertTrue(person.getAge() == nextAge);
-            assertTrue(person.getGender().equals(nextGender));
-            assertTrue(person.isHasCar() == nextHasCar);
+            assertEquals(person.getFirstName(), nextFirstName);
+            assertEquals(person.getLastName(), nextLastName);
+            assertEquals(person.getAge(), nextAge);
+            assertEquals(person.getGender(), nextGender);
+            assertEquals(person.isHasCar(), nextHasCar);
         }
 
         for (int i = listSize - lastElementsToCustomize; i < listSize; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(lastFirstName));
-            assertTrue(person.getLastName().equals(lastLastName));
-            assertTrue(person.getAge() == lastAge);
-            assertTrue(person.getGender().equals(lastGender));
-            assertTrue(person.isHasCar() == lastHasCar);
+            assertEquals(person.getFirstName(), lastFirstName);
+            assertEquals(person.getLastName(), lastLastName);
+            assertEquals(person.getAge(), lastAge);
+            assertEquals(person.getGender(), lastGender);
+            assertEquals(person.isHasCar(), lastHasCar);
         }
     }
 
@@ -530,21 +557,21 @@ public class FakeBuilderTest {
         for (int i = 0; i < firstElementsToCustomize; i++) {
             Person person = list.get(i);
 
-            assertTrue(person.getFirstName().equals(firstName));
-            assertTrue(person.getLastName().equals(lastName));
-            assertTrue(person.getAge() == age);
-            assertTrue(person.getGender().equals(gender));
-            assertTrue(person.isHasCar() == hasCar);
+            assertEquals(person.getFirstName(), firstName);
+            assertEquals(person.getLastName(), lastName);
+            assertEquals(person.getAge(), age);
+            assertEquals(person.getGender(), gender);
+            assertEquals(person.isHasCar(), hasCar);
         }
 
         for (int i = listSize - lastElementsToCustomize; i < listSize; i++) {
             Person person = list.get(i);
-
-            assertTrue(person.getFirstName().equals(lastFirstName));
-            assertTrue(person.getLastName().equals(lastLastName));
-            assertTrue(person.getAge() == lastAge);
-            assertTrue(person.getGender().equals(lastGender));
-            assertTrue(person.isHasCar() == lastHasCar);
+            
+            assertEquals(person.getFirstName(), lastFirstName);
+            assertEquals(person.getLastName(), lastLastName);
+            assertEquals(person.getAge(), lastAge);
+            assertEquals(person.getGender(), lastGender);
+            assertEquals(person.isHasCar(), lastHasCar);
         }
     }
 
