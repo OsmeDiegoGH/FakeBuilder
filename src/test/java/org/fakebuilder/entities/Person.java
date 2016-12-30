@@ -1,5 +1,7 @@
 package org.fakebuilder.entities;
 
+import java.util.List;
+
 public class Person {
     private String firstName;
     private String lastName;
@@ -7,18 +9,20 @@ public class Person {
     private GENDER gender;
     private boolean hasCar;
     private Car car;
+    private List<String> jobHistory;
     
     public enum GENDER{
         MALE, FEMALE
     }
 
-    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car) {
+    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car, List<String> jobHistory) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.gender = gender;
         this.hasCar = hasCar;
         this.car = car;
+        this.jobHistory = jobHistory;
     }
 
     public String getFirstName() {
@@ -67,5 +71,13 @@ public class Person {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public List<String> getJobHistory() {
+        return jobHistory;
+    }
+
+    public void setJobHistory(List<String> jobHistory) {
+        this.jobHistory = jobHistory;
     }
 }

@@ -22,21 +22,7 @@ public class FakeListBuilder<T> extends FakeBuilderProcessor {
         this.applyList.add(new ApplyNextOption(elementsToApply, applyFn));
     }
 
-    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Object[] elements = new Object[this.size];
-
-        int lastCreatedIndex = 0;
-        for (ApplyNextOption applyOption : this.applyList) {
-            for (int i = 0; i < applyOption.getElementsToApply(); i++) {
-                T element = createNew(this.classOfT);
-                applyOption.getApplyFn().apply(element);
-                elements[lastCreatedIndex++] = element;
-            }
-        }
-
-        for (; lastCreatedIndex < this.size; lastCreatedIndex++) {
-            elements[lastCreatedIndex] = createNew(this.classOfT);
-        }
-        return (List<T>) Arrays.asList(elements);
+    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException {
+        return createList(classOfT, size, applyList);
     }
 }

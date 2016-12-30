@@ -60,7 +60,7 @@ public class FakeNextListBuilderOptions<T> extends FakeListBuilder<T> {
     }
 
     @Override
-    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException {
         Object[] elements = new Object[this.size];
 
         int lastCreatedIndex = 0;
