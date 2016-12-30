@@ -25,9 +25,8 @@ public class FakeBuilderTest {
         MockitoAnnotations.initMocks(this);
     }
     
-    
     @Test
-    public void createNew_ShouldReturnASingleInstance_OfPrimitiveTypes() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException {
+    public void createNew_ShouldReturnASingleInstance_OfPrimitiveTypes() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException, FakeBuilderProcessor.ConstructorNotFoundException {
         //Arrange
 
         //Act
@@ -44,7 +43,7 @@ public class FakeBuilderTest {
     }
 
     @Test
-    public void createNew_ShouldReturnASingleInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException {
+    public void createNew_ShouldReturnASingleInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException, FakeBuilderProcessor.ConstructorNotFoundException {
         //Arrange
 
         //Act

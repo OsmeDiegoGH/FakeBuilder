@@ -18,7 +18,7 @@ public class FakeBuilderItem<T> extends FakeBuilderProcessor {
         return this;
     }
 
-    public T build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException {
+    public T build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException, ConstructorNotFoundException {
         T element = createNew(this.classOfT);
         for (org.fakebuilder.api.FakeBuilder.ApplyValuesFn applyFn : this.applyList) {
             applyFn.apply(element);

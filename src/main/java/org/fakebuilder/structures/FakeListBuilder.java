@@ -22,7 +22,7 @@ public class FakeListBuilder<T> extends FakeBuilderProcessor {
         this.applyList.add(new ApplyNextOption(elementsToApply, applyFn));
     }
 
-    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException {
+    public List<T> build() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException, ConstructorNotFoundException {
         return createList(classOfT, size, applyList);
     }
 }
