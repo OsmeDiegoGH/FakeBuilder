@@ -35,11 +35,13 @@ public class FakeBuilderTest {
         boolean boolPrimitive = this.builder.createNew(boolean.class).build();
         int intPrimitive = this.builder.createNew(int.class).build();
         Integer integer = this.builder.createNew(Integer.class).build();
+        Person.GENDER customEnum = this.builder.createNew(Person.GENDER.class).build();
 
         //Assert 
         assertTrue(str != null);
         assertTrue(bool != null);
         assertTrue(integer != null);
+        assertTrue(customEnum != null);
     }
 
     @Test

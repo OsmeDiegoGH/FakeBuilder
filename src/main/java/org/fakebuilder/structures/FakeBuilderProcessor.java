@@ -38,6 +38,10 @@ public class FakeBuilderProcessor {
     protected <T> T createNew(Class<T> classOfT) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InvalidTypeException, ConstructorNotFoundException {
         String classOfTSimpleName = classOfT.getSimpleName().toLowerCase();
         
+        if (classOfT.isEnum()) {
+            classOfTSimpleName = "enum";
+        }
+        
         switch (classOfTSimpleName) {
             case "int":
             case "integer":

@@ -12,13 +12,14 @@ public class Person {
     private Car car;
     private List<String> jobHistory;
     private List<Car> carHistory;
+    private List<GENDER> acceptedGenders;
     private Date birdate;
     
     public enum GENDER{
         MALE, FEMALE
     }
 
-    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car, List<String> jobHistory, List<Car> carHistory, Date birdate) {
+    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car, List<String> jobHistory, List<Car> carHistory, List<GENDER> acceptedGenders, Date birdate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -27,6 +28,7 @@ public class Person {
         this.car = car;
         this.jobHistory = jobHistory;
         this.carHistory = carHistory;
+        this.acceptedGenders = acceptedGenders;
         this.birdate = birdate;
     }
 
@@ -100,5 +102,13 @@ public class Person {
 
     public void setBirdate(Date birdate) {
         this.birdate = birdate;
+    }
+
+    public List<GENDER> getAcceptedGenders() {
+        return acceptedGenders;
+    }
+
+    public void setAcceptedGenders(List<GENDER> acceptedGenders) {
+        this.acceptedGenders = acceptedGenders;
     }
 }
