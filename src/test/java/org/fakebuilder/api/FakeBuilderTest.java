@@ -1,9 +1,7 @@
 package org.fakebuilder.api;
 
-import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import junit.framework.Assert;
 import static junit.framework.Assert.assertEquals;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -15,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import static junit.framework.Assert.assertTrue;
 import org.fakebuilder.api.FakeBuilder.ApplyValuesFn;
+import org.fakebuilder.structures.FakeBuilderProcessor;
 
 @RunWith(JUnitParamsRunner.class)
 public class FakeBuilderTest {
@@ -25,9 +24,27 @@ public class FakeBuilderTest {
     public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
+    
+    
+    @Test
+    public void createNew_ShouldReturnASingleInstance_OfPrimitiveTypes() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException {
+        //Arrange
+
+        //Act
+        String str = this.builder.createNew(String.class).build();
+        Boolean bool = this.builder.createNew(Boolean.class).build();
+        boolean boolPrimitive = this.builder.createNew(boolean.class).build();
+        int intPrimitive = this.builder.createNew(int.class).build();
+        Integer integer = this.builder.createNew(Integer.class).build();
+
+        //Assert 
+        assertTrue(str != null);
+        assertTrue(bool != null);
+        assertTrue(integer != null);
+    }
 
     @Test
-    public void createNew_ShouldReturnASingleInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void createNew_ShouldReturnASingleInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, FakeBuilderProcessor.InvalidTypeException {
         //Arrange
 
         //Act
@@ -84,7 +101,6 @@ public class FakeBuilderTest {
         assertEquals(person.getCar().getColor(), carColor);
     }
     
-    
     @Test
     public void createNew_ShouldReturnAnEmptyList_EventhoughCustomValuesAreSpecified() throws Exception {
         //Arrange
@@ -108,6 +124,30 @@ public class FakeBuilderTest {
         assertEquals(list.size(), 0);
     }
 
+    @Test
+    @Parameters({
+        "10",
+        "30",
+        "60",
+        "25"
+    })
+    public void createNew_ShouldReturnAList_WithCustomSize_OfPrimitiveTypes(int listSize) throws Exception {
+        //Arrange
+        List<String> listStrings;
+        List<Boolean> listBooleans;
+        List<Integer> listInteger;
+
+        //Act
+        listStrings = this.builder.createList(String.class).ofSize(listSize).all().build();
+        listBooleans = this.builder.createList(Boolean.class).ofSize(listSize).all().build();
+        listInteger = this.builder.createList(Integer.class).ofSize(listSize).all().build();
+
+        //Assert 
+        assertEquals(listStrings.size(), listSize);
+        assertEquals(listBooleans.size(), listSize);
+        assertEquals(listInteger.size(), listSize);
+    }
+    
     @Test
     @Parameters({
         "10",
