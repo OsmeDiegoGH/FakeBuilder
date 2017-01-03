@@ -2,6 +2,7 @@ package org.fakebuilder.entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Person {
     private String firstName;
@@ -14,12 +15,13 @@ public class Person {
     private List<Car> carHistory;
     private List<GENDER> acceptedGenders;
     private Date birdate;
+    private Map<String, Object> notes;
     
     public enum GENDER{
         MALE, FEMALE
     }
 
-    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car, List<String> jobHistory, List<Car> carHistory, List<GENDER> acceptedGenders, Date birdate) {
+    public Person(String firstName, String lastName, int age, GENDER gender, boolean hasCar, Car car, List<String> jobHistory, List<Car> carHistory, List<GENDER> acceptedGenders, Date birdate, Map<String, Object> notes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -30,6 +32,7 @@ public class Person {
         this.carHistory = carHistory;
         this.acceptedGenders = acceptedGenders;
         this.birdate = birdate;
+        this.notes = notes;
     }
 
     public String getFirstName() {
@@ -110,5 +113,13 @@ public class Person {
 
     public void setAcceptedGenders(List<GENDER> acceptedGenders) {
         this.acceptedGenders = acceptedGenders;
+    }
+
+    public Map<String, Object> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Map<String, Object> notes) {
+        this.notes = notes;
     }
 }
